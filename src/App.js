@@ -1,6 +1,8 @@
 const form = document.querySelector("#totalizador_de_venta-form");
 const cantidad = document.querySelector("#cantidad-input");
-const p = document.querySelector("#totalizado");
+const precio = document.querySelector("#precio-input");
+const a = document.querySelector("#cantidad");
+const b = document.querySelector("#precio");
 
 form.addEventListener("submit", (event) => {
 
@@ -8,13 +10,14 @@ form.addEventListener("submit", (event) => {
     event.preventDefault();
 
     // Mensaje de alerta
-    p.innerHTML = mostrar_cantidad(cantidad.value);
+    a.innerHTML = mostrar_cantidad(cantidad.value);
+    b.innerHTML = mostrar_precio(precio.value);
 });
 
-function Funcion(){
-    location.href = "venta.html";
+function mostrar_cantidad(cantidad){
+    return "La cantidad de items es : " + cantidad;
 }
 
-function mostrar_cantidad(cantidad){
-    return "Cantidad : " + cantidad;
+function mostrar_precio(precio){
+    return "El precio del item es : " + precio + " $";
 }
