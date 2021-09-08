@@ -9,6 +9,19 @@ const d = document.querySelector("#descuento");
 const e = document.querySelector("#impuesto");
 const f = document.querySelector("#precio_venta");
 const g = document.querySelector("#precio_total");
+const lista_venta = document.getElementById("lista_venta");
+
+class Venta {
+    constructor(cantidad, precio, estado, descuento, impuesto, precio_venta, precio_total) {
+        this.cantidad = cantidad;
+        this.precio = precio;
+        this.estado = estado;
+        this.descuento = descuento;
+        this.impuesto = impuesto;
+        this.precio_venta = precio_venta;
+        this.precio_total = precio_total;
+    }
+}
 
 form.addEventListener("submit", (event) => {
 
@@ -36,14 +49,15 @@ form.addEventListener("submit", (event) => {
     // Calcular precio de venta
     precio_total = calcular_precio_venta(precio_venta, impuesto);
 
-    // Mensajes
-    a.innerHTML = mostrar_cantidad(cantidad.value);
-    b.innerHTML = mostrar_precio(precio.value);
-    c.innerHTML = mostrar_estado(estado.value);
-    d.innerHTML = mostrar_descuento(descuento);
-    e.innerHTML = mostrar_impuesto(impuesto);
-    f.innerHTML = mostrar_precio_venta(precio_venta);
-    g.innerHTML = mostrar_precio_total(precio_total);
+    // Crear venta
+    const venta = new Venta(cantidad.value, precio.value, estado.value, descuento, impuesto, precio_venta, precio_total);
+
+    // Agregar venta
+    agregar_y_mostrar_ventas(venta);
+
+
+    // Mostrar venta
+    mostrar_venta(venta);
 });
 
 function mostrar_cantidad(cantidad){
@@ -72,6 +86,16 @@ function mostrar_impuesto(impuesto){
 
 function mostrar_precio_total(precio){
     return "Precio total : " + precio + " $";
+}
+
+function mostrar_venta(venta){
+    a.innerHTML = mostrar_cantidad(venta.cantidad);
+    b.innerHTML = mostrar_precio(venta.precio);
+    c.innerHTML = mostrar_estado(venta.estado);
+    d.innerHTML = mostrar_descuento(venta.descuento);
+    e.innerHTML = mostrar_impuesto(venta.impuesto);
+    f.innerHTML = mostrar_precio_venta(venta.precio_venta);
+    g.innerHTML = mostrar_precio_total(venta.precio_total);
 }
 
 
@@ -138,3 +162,22 @@ function calcular_impuesto(estado, precio){
 function calcular_precio_venta(precio, impuesto){
     return precio + impuesto;
 }
+
+function agregar_y_mostrar_ventas(venta){
+    const lista_venta = document.getElementById("lista_venta");
+    const element = document.createElement("div");
+    element.innerHTML = `
+            <div>
+                <strong>Cantidad</strong>: ${venta.cantidad} -
+                <strong>Precio</strong>: ${venta.precio} - 
+                <strong>Estado</strong>: ${venta.estado}
+                <strong>Descuento</strong>: ${venta.descuento}
+                <strong>Impuesto</strong>: ${venta.impuesto}
+                <strong>Precio de venta</strong>: ${venta.precio_venta}
+                <strong>Precio total</strong>: ${venta.precio_total}
+            </div>
+        `;
+        lista_venta.appendChild(element);
+}
+
+
