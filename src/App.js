@@ -23,43 +23,6 @@ class Venta {
     }
 }
 
-form.addEventListener("submit", (event) => {
-
-    // Variables
-    var precio_total;
-    var descuento;
-    var impuesto;
-    var precio_venta;
-
-    // Denegar la actualizacion de la pagina
-    event.preventDefault();
-
-    // Calcular precio total
-    precio_total = calcular_precio_total(cantidad.value, precio.value);
-
-    // Calcular el descuento basandose en el precio total
-    descuento = calcular_descuento(precio_total);
-
-    // Calcular precio total con descuento
-    precio_venta = calcular_precio_total_con_descuento(precio_total, descuento);
-
-    // Calcular el impuesto basandose en el codigo de estado
-    impuesto = calcular_impuesto(estado.value, precio_venta);
-
-    // Calcular precio de venta
-    precio_total = calcular_precio_venta(precio_venta, impuesto);
-
-    // Crear venta
-    const venta = new Venta(cantidad.value, precio.value, estado.value, descuento, impuesto, precio_venta, precio_total);
-
-    // Agregar venta
-    agregar_y_mostrar_ventas(venta);
-
-
-    // Mostrar venta
-    mostrar_venta(venta);
-});
-
 function mostrar_cantidad(cantidad){
     return "La cantidad de items es : " + cantidad;
 }
@@ -136,7 +99,6 @@ function calcular_precio_total_con_descuento(precio, descuento){
 }
 
 function calcular_impuesto(estado, precio){
-
     if(estado == "UT"){
         return 0.0665 * precio;
     }
@@ -156,7 +118,6 @@ function calcular_impuesto(estado, precio){
     if(estado == "CA"){
         return 0.0825 * precio;
     }
-  
 }
 
 function calcular_precio_venta(precio, impuesto){
@@ -164,7 +125,6 @@ function calcular_precio_venta(precio, impuesto){
 }
 
 function agregar_y_mostrar_ventas(venta){
-    const lista_venta = document.getElementById("lista_venta");
     const element = document.createElement("div");
     element.innerHTML = `
             <div>
@@ -175,9 +135,59 @@ function agregar_y_mostrar_ventas(venta){
                 <strong>Impuesto</strong>: ${venta.impuesto}
                 <strong>Precio de venta</strong>: ${venta.precio_venta}
                 <strong>Precio total</strong>: ${venta.precio_total}
+                <a href="#" class="btn btn-danger" name="delete">Delete</a>
             </div>
         `;
         lista_venta.appendChild(element);
 }
 
+function eliminar_venta(element) {
+    if (element.name === "delete") {
+        element.parentElement.parentElement.remove();
+      }
+}
 
+form.addEventListener("submit", (event) => {
+
+    // Variables
+    var precio_total;
+    var descuento;
+    var impuesto;
+    var precio_venta;
+
+    // Denegar la actualizacion de la pagina
+    event.preventDefault();
+
+    // Calcular precio total
+    precio_total = calcular_precio_total(cantidad.value, precio.value);
+
+    // Calcular el descuento basandose en el precio total
+    descuento = calcular_descuento(precio_total);
+
+    // Calcular precio total con descuento
+    precio_venta = calcular_precio_total_con_descuento(precio_total, descuento);
+
+    // Calcular el impuesto basandose en el codigo de estado
+    impuesto = calcular_impuesto(estado.value, precio_venta);
+
+    // Calcular precio de venta
+    precio_total = calcular_precio_venta(precio_venta, impuesto);
+
+    // Crear venta
+    const venta = new Venta(cantidad.value, precio.value, estado.value, descuento, impuesto, precio_venta, precio_total);
+
+    // Agregar venta
+    agregar_y_mostrar_ventas(venta);
+
+
+    // Mostrar venta
+    mostrar_venta(venta);
+
+    // Eliminar venta
+    eliminar_venta();
+});
+
+lista_venta.addEventListener("click", (e) => {
+    eliminar_venta(e.target);
+    e.preventDefault();
+});
