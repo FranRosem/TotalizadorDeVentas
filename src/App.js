@@ -7,12 +7,14 @@ const b = document.querySelector("#precio");
 const c = document.querySelector("#estado");
 const d = document.querySelector("#precio_total");
 const e = document.querySelector("#descuento");
+const f = document.querySelector("#precio_total_con_descuento");
 
 form.addEventListener("submit", (event) => {
 
     // Variables
     var precio_total;
     var descuento;
+    var precio_total_con_descuento;
 
     // Denegar la actualizacion de la pagina
     event.preventDefault();
@@ -23,12 +25,16 @@ form.addEventListener("submit", (event) => {
     // Calcular el descuento basandose en el precio total
     descuento = calcular_descuento(precio_total);
 
+    // Calcular precio total con descuento
+    precio_total_con_descuento = calcular_precio_total_con_descuento(precio_total, descuento);
+
     // Mensajes
     a.innerHTML = mostrar_cantidad(cantidad.value);
     b.innerHTML = mostrar_precio(precio.value);
     c.innerHTML = mostrar_estado(estado.value);
     d.innerHTML = mostrar_precio_total(precio_total);
     e.innerHTML = mostrar_descuento(descuento);
+    f.innerHTML = mostrar_precio_total_con_descuento(precio_total_con_descuento);
 });
 
 function mostrar_cantidad(cantidad){
@@ -49,6 +55,10 @@ function mostrar_precio_total(precio_total){
 
 function mostrar_descuento(descuento){
     return "El descuento es de : " + descuento + " $";
+}
+
+function mostrar_precio_total_con_descuento(precio_total_con_descuento){
+    return "El precio total con descuento es de : " + precio_total_con_descuento + " $";
 }
 
 
@@ -81,4 +91,8 @@ function calcular_descuento(precio_total){
     if(precio_total < 1000){
         return 0;
     }    
+}
+
+function calcular_precio_total_con_descuento(precio_total, descuento){
+    return precio_total - descuento;
 }
