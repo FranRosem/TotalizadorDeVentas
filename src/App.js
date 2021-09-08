@@ -8,6 +8,7 @@ const c = document.querySelector("#estado");
 const d = document.querySelector("#precio_total");
 const e = document.querySelector("#descuento");
 const f = document.querySelector("#precio_total_con_descuento");
+const g = document.querySelector("#impuesto");
 
 form.addEventListener("submit", (event) => {
 
@@ -15,6 +16,7 @@ form.addEventListener("submit", (event) => {
     var precio_total;
     var descuento;
     var precio_total_con_descuento;
+    var impuesto;
 
     // Denegar la actualizacion de la pagina
     event.preventDefault();
@@ -28,6 +30,9 @@ form.addEventListener("submit", (event) => {
     // Calcular precio total con descuento
     precio_total_con_descuento = calcular_precio_total_con_descuento(precio_total, descuento);
 
+    // Calcular el impuesto basandose en el codigo de estado
+    impuesto = calcular_impuesto(estado.value, precio_total_con_descuento);
+
     // Mensajes
     a.innerHTML = mostrar_cantidad(cantidad.value);
     b.innerHTML = mostrar_precio(precio.value);
@@ -35,6 +40,7 @@ form.addEventListener("submit", (event) => {
     d.innerHTML = mostrar_precio_total(precio_total);
     e.innerHTML = mostrar_descuento(descuento);
     f.innerHTML = mostrar_precio_total_con_descuento(precio_total_con_descuento);
+    g.innerHTML = mostrar_impuesto(impuesto);
 });
 
 function mostrar_cantidad(cantidad){
@@ -61,10 +67,15 @@ function mostrar_precio_total_con_descuento(precio_total_con_descuento){
     return "El precio total con descuento es de : " + precio_total_con_descuento + " $";
 }
 
+function mostrar_impuesto(impuesto){
+    return "El impuesto es de : " + impuesto + " $";
+}
+
 
 function calcular_precio_total(cantidad, precio){
     return cantidad * precio;
 }
+
 
 function calcular_descuento(precio_total){
 
@@ -90,9 +101,33 @@ function calcular_descuento(precio_total){
 
     if(precio_total < 1000){
         return 0;
-    }    
+    }
 }
 
 function calcular_precio_total_con_descuento(precio_total, descuento){
     return precio_total - descuento;
+}
+
+function calcular_impuesto(estado, precio_total_con_descuento){
+
+    if(estado == "UT"){
+        return 0.0665 * precio_total_con_descuento;
+    }
+
+    if(estado == "NV"){
+        return 0.08 * precio_total_con_descuento;
+    }
+
+    if(estado == "TX"){
+        return 0.0625 * precio_total_con_descuento;
+    }
+
+    if(estado == "AL"){
+        return 0.04 * precio_total_con_descuento;
+    }
+
+    if(estado == "CA"){
+        return 0.0825 * precio_total_con_descuento;
+    }
+  
 }
