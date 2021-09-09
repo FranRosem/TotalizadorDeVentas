@@ -1,21 +1,129 @@
 <html>
   <title>Totalizador de venta</title>
+
+  <style>
+
+    body {
+      position: absolute;
+      min-height: 100vh;
+      color: #8d98d3;
+      background-color: #383C54;
+      background-size: cover;
+    }
+
+    .textBox {
+      width: 270px;
+      height: 35px;
+      font-size: 14px;
+      border: 1px solid #8d98d3;
+      background:white;
+      margin-top: 5px;
+      padding-left: 5px;
+      font-family: 'NN' !important;
+      background-repeat: no-repeat;
+      color:8d98d3;
+      border-radius: 10px;
+      text-align: center;
+      margin: 10px 10 10px 20;
+    }
+
+    .items {
+      border-radius: 2px 2px 5px 5px;
+      padding: 10px 20px 20px 20px;
+      width: 90%;
+      max-width: 320px;
+      background: #ffffff;
+      position: relative;
+      padding-bottom: 80px;
+      box-shadow: 0px 1px 5px rgba(0,0,0,0.3);
+      top: 40;
+      left: 40;
+    }
+
+    .venta {
+      position: absolute;
+      border-radius: 2px 2px 5px 5px;
+      padding: 50px 20px 20px 20px;
+      width: 90%;
+      max-width: 320px;
+      background: #ffffff;
+      position: relative;
+      padding-bottom: 80px;
+      box-shadow: 0px 1px 5px rgba(0,0,0,0.3);
+      top: -390;
+      left: 460;
+    }
+
+    .title_lista_ventas {
+      position: absolute;
+      border-radius: 2px 2px 5px 5px;
+      padding: 10px 240px 20px 20px;
+      width: 90%;
+      max-width: 320px;
+      background: #ffffff;
+      position: relative;
+      padding-bottom: 80px;
+      box-shadow: 0px 1px 5px rgba(0,0,0,0.3);
+      top: -820;
+      left: 880;
+    }
+
+    .totalizar-btn {
+      font-family: 'NN' !important;
+      border-top: 1px solid #fff;
+      background: rgb(95, 92, 92);
+      margin-top: 10px;
+      width: 270px;
+      height: 35px;
+      border: 0px;
+      font-size: 15px;
+      text-align: center;
+      line-height: 23px;
+      background-color: #8d98d3;
+      color:white;
+      border-radius: 10px;
+      margin: 10px 10 10px 20;
+    }
+
+    .selector {
+      border-top: 1px solid #fff;
+      margin-top: 10px;
+      width: 270px;
+      height: 35px;
+      border: 0px;
+      font-size: 15px;
+      text-align: center;
+      line-height: 23px;
+      color:#8d98d3;
+      border-radius: 10px;
+      margin: 10px 10 10px 90;
+    }
+
+    .lista_venta_content {
+      width: 500px;
+      height: 260px;
+      text-align: center;
+      line-height: 30px;
+      border-radius: 10px;
+      color:#383C54;
+      background:#bec9ff;
+      margin: 0px 0 0px 20;
+    }
+
+
+    </style>
+
   <body>
-    
-    <div class="title">
-      <h1>Totalizador de venta</h1>
-    </div>
 
     <div class="items">
+      <h1>Totalizador de venta</h1>
       <form id='totalizador_de_venta-form'>
-        <label for='cantidad-input'>Cantidad : </label>
-        <input type='number' id='cantidad-input' min = 0>
+        <input type='number' class="textBox" placeholder="Cantidad" id='cantidad-input' min = 0>
         <br/><br/>
-        <label for='precio-input'>Precio : </label>
-        <input type='number' id='precio-input' min = 0 step="0.01">
+        <input type='number' class="textBox" placeholder="Precio" id='precio-input' min = 0 step="0.01">
         <label>$</label>
         <br/><br/>
-        <label for='estado-input'>Estado : </label>
+        <label class="selector" for='estado-input'>Estado : </label>
         <select id="ESTADO-input">
           <option value="UT">UT</option>
           <option value="NV">NV</option>
@@ -24,14 +132,15 @@
           <option value="CA">CA</option>
         </select>
         <br/><br/>
-        <input type='submit' value='totalizar'>
+        <input type='submit' class="totalizar-btn" value='totalizar'>
     </div>
 
     <div class="title_venta">
-      <h1>Venta</h1>
+      
     </div>
 
     <div class="venta">
+      <h1>Venta</h1>
       <a id="cantidad"></a>
       <br/><br/>
       <b id="precio"></b>
@@ -49,10 +158,8 @@
 
     <div class="title_lista_ventas">
       <h1>Lista de ventas</h1>
+      <div class="lista_venta_content" id="lista_venta"></div>
     </div>
-
-    <div id="lista_venta"></div>
-
     <script src="./src/index.js"></script>
   </body>
 </html>
